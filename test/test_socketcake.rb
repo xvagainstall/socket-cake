@@ -45,7 +45,8 @@ class SCTest < Minitest::Test
       sc.task_list << ws
       
       sc.roll
-
+        #fix
+        
     end
 
 
