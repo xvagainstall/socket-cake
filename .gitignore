@@ -1,7 +1,7 @@
 
 
-test/
-.vscode
+test/*
+.vscode/
 *.gem
 *.rbc
 /.config
