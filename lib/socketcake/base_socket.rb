@@ -49,11 +49,7 @@ class SocketCake::BaseSocket
     def handle msg
         @message = JSON.parse(msg)
         unless self.current_task[:completed]
-            if self.method_defined? self.current_task[:name]
                 self.send(self.current_task[:name], self.current_task[:args])    
-            else
-                puts 'There is no method you called'
-            end
         end
     end
 

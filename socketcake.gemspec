@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'socketcake'
-  s.version     = '0.1.7'
+  s.version     = '0.1.10'
   s.date        = '2017-04-28'
   s.summary     = "socketcake!"
   s.description = "websockets"

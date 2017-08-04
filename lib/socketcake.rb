@@ -9,15 +9,16 @@ class SocketCake
         @storage = Hash.new
     end
     
-    def roll
-        EM.run do
-            create_sockets @task_list
-                ObjectSpace.each_object(BaseSocket).each do |t|
-                t.start {|data| @storage[t.class.to_s]=data}
-            end
-            EM.stop
-        end
+  def roll
+    EM.run do
+      create_sockets @task_list
+      socks = ObjectSpace.each_object(BaseSocket).to_a
+      socks.count do |t|
+        t.start { |data| return true if @storage[t.class.to_s]=data }
+      end
     end
+  end
+
 
 
     private
