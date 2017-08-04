@@ -1,18 +1,19 @@
-class BaseSocket
+class SocketCake::BaseSocket
 
-  attr_accessor :url, :open_message, :task_list, :cookie, :completed_tasks, :current_task, :storage
+  attr_accessor :url, :open_message, :task_list, :cookie, :completed_tasks, :current_task, :local_storage, :verbose
 
     def self.get_sequence
         ObjectSpace.each_object(self)
     end
 
-  def initialize task_list, url, open_message, cookie
+  def initialize task_list, url, open_message, cookie, verbose = false
     self.url = url
     self.open_message = open_message
     self.task_list = task_list
     self.cookie = cookie
     self.completed_tasks = Array.new
-    self.storage = Hash.new
+    self.local_storage = Hash.new
+    self.verbose = verbose
   end
 
   def start(arg = nil)
@@ -31,6 +32,7 @@ class BaseSocket
     end
 
     @socket.onmessage do |msg|
+      puts msg if @verbose
       handle(msg)
     end
 
@@ -41,13 +43,13 @@ class BaseSocket
 
     @socket.onclose do |code, reason|
       puts "#{Time.now} Disconnected with status code: #{code} and reason: #{reason}"
-      yield(self.storage)
+      yield(local_storage)
     end
 
     def handle msg
         @message = JSON.parse(msg)
         unless self.current_task[:completed]
-            if method_defined? self.current_task[:name]
+            if self.method_defined? self.current_task[:name]
                 self.send(self.current_task[:name], self.current_task[:args])    
             else
                 puts 'There is no method you called'

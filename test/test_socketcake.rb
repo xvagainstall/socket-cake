@@ -1,13 +1,13 @@
 require 'minitest/autorun'
 require_relative '../lib/socketcake'
-require_relative '../lib/ws_task'
-require_relative '../lib/base_socket'
+require_relative '../lib/socketcake/ws_task'
+require_relative '../lib/socketcake/base_socket'
 
 require 'pp'
 
-class Ds < BaseSocket
+class Ds < SocketCake::BaseSocket
 end
-class Ws < BaseSocket
+class Ws < SocketCake::BaseSocket
 end
 
 class SCTest < Minitest::Test
@@ -46,7 +46,7 @@ class SCTest < Minitest::Test
       
       sc.roll
         #fix
-        
+
     end
 
 
