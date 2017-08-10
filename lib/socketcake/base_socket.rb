@@ -57,15 +57,6 @@ class SocketCake::BaseSocket
 
 
   private
-  def build_request(data)
-    [{data_type: data[:data_type],
-      event_name: data[:event_name],
-      timestamp: Time.now.to_i,
-      type: 'request',
-      uuid: SecureRandom.uuid,
-      data: Array.new << data[:data]}]
-  end
-
   def task_completed?
     self.current_task[:completed]
   end
